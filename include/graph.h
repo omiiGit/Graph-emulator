@@ -6,6 +6,15 @@
 #include "font.h"
 #include "utils.h"
 
+
+typedef struct 
+{
+    int x,y;
+    Text info;
+
+}Point;
+
+
 typedef struct 
 {
     int scale;
