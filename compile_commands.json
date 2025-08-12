@@ -1,0 +1,20 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-Iinclude",
+      "-I/usr/include/SDL2",
+      "-D_GNU_SOURCE=1",
+      "-D_REENTRANT",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/om/programs/c/graph",
+    "file": "/home/om/programs/c/graph/src/main.c",
+    "output": "/home/om/programs/c/graph/build/main.o"
+  }
+]
