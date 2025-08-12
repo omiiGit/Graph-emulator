@@ -34,17 +34,14 @@ Graph createGraph(int scale)
     {
         .scale = scale,
         .grid = createGrid(scale),
+        .numbers = createText("res/dina.ttf",15,0,0,0),
     };
 }
 
-void drawGraph(SDL_Renderer* renderer,Graph* graph)
+void drawRuler(SDL_Renderer* renderer,Graph* graph)
 {
-    //draw_grid on graph
-    drawGrid(renderer,&graph->grid); 
-
-
-    //draw x-y axis line
     SDL_SetRenderDrawColor(renderer,255,0,0,255);
+
 
     int n = graph->scale*((WIN_WIDTH/graph->scale)/2);
     SDL_Rect yLine = {n,0,3,WIN_HEIGHT};
@@ -56,23 +53,51 @@ void drawGraph(SDL_Renderer* renderer,Graph* graph)
     SDL_RenderFillRect(renderer,&xLine);
 
     //draw ruler on x-y line
+    char num[3];
     for(int i = 0,x = graph->scale;i < WIN_WIDTH/graph->scale;i++)
     {
         SDL_Rect line = {x,k,2,7};
 
+        int o = (WIN_WIDTH/graph->scale)/2;
+        if(i != o-1)
+        {
+            int value = (i+1) - o;
+            i_toa(value,num);
+            drawText(renderer,&graph->numbers,num,x,k+9);
+        }
+        else 
+        {
+            i_toa(0,num);
+            drawText(renderer,&graph->numbers,num,x+4,k+5);
+        }
         SDL_RenderFillRect(renderer,&line);
         x += graph->scale;
     }
     
-    for(int i = 0,y = graph->scale;i < WIN_HEIGHT/graph->scale;i++)
+
+    for(int i = 0,y = WIN_HEIGHT-graph->scale;i < WIN_HEIGHT/graph->scale;i++)
     {
         SDL_Rect line = {n,y,7,2};
 
+        int o = (WIN_HEIGHT/graph->scale)/2;
+        if(i != o-1)
+        {
+            int value = (i+1) - o;
+            char num[3]; i_toa(value,num);
+            drawText(renderer,&graph->numbers,num,n+9,y);
+        }
         SDL_RenderFillRect(renderer,&line);
-        y += graph->scale;
+        y -= graph->scale;
     }
+}
 
+void drawGraph(SDL_Renderer* renderer,Graph* graph)
+{
+    //draw_grid on graph
+    drawGrid(renderer,&graph->grid); 
 
+    //draw_ruler on graph
+    drawRuler(renderer,graph);
 
     SDL_RenderPresent(renderer);
 }

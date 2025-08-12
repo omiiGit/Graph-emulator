@@ -31,9 +31,7 @@ void initState(State* state)
             SDL_WINDOW_SHOWN
             ); 
 
-    state->renderer = SDL_CreateRenderer(state->window,-1,
-            SDL_RENDERER_ACCELERATED | 
-            SDL_RENDERER_PRESENTVSYNC);
+    state->renderer = SDL_CreateRenderer(state->window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     SDL_SetRenderDrawColor(state->renderer,255,255,255,255);
     SDL_RenderClear(state->renderer);
@@ -56,6 +54,10 @@ void updateState(State* state)
                 case SDL_QUIT: quit = true; break;
             }
         }
+
+        SDL_SetRenderDrawColor(state->renderer,255,255,255,255);
+        SDL_RenderClear(state->renderer);
+
         drawGraph(state->renderer,&state->graph);
     }
 
