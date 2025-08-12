@@ -46,17 +46,19 @@ void drawGraph(SDL_Renderer* renderer,Graph* graph)
     //draw x-y axis line
     SDL_SetRenderDrawColor(renderer,255,0,0,255);
 
-    SDL_Rect yLine = {WIN_WIDTH/2,0,3,WIN_HEIGHT};
+    int n = graph->scale*((WIN_WIDTH/graph->scale)/2);
+    SDL_Rect yLine = {n,0,3,WIN_HEIGHT};
     SDL_RenderFillRect(renderer,&yLine);
 
 
-    SDL_Rect xLine = {0,WIN_HEIGHT/2,WIN_WIDTH,3};
+    int k = graph->scale*((WIN_HEIGHT/graph->scale)/2);
+    SDL_Rect xLine = {0,k,WIN_WIDTH,3};
     SDL_RenderFillRect(renderer,&xLine);
 
     //draw ruler on x-y line
     for(int i = 0,x = graph->scale;i < WIN_WIDTH/graph->scale;i++)
     {
-        SDL_Rect line = {x,WIN_HEIGHT/2,2,7};
+        SDL_Rect line = {x,k,2,7};
 
         SDL_RenderFillRect(renderer,&line);
         x += graph->scale;
@@ -64,7 +66,7 @@ void drawGraph(SDL_Renderer* renderer,Graph* graph)
     
     for(int i = 0,y = graph->scale;i < WIN_HEIGHT/graph->scale;i++)
     {
-        SDL_Rect line = {WIN_WIDTH/2,y,7,2};
+        SDL_Rect line = {n,y,7,2};
 
         SDL_RenderFillRect(renderer,&line);
         y += graph->scale;
