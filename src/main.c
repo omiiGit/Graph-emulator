@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "utils.h" 
 #include "state.h"
 
 int main()
@@ -12,4 +13,11 @@ int main()
     closeState(&window);
 
     return 0;
+
+    /*float num = 1.5;
+    char s[8];
+
+    f_toa(num,s);
+
+    printf("%s",s);*/
 }

@@ -33,10 +33,10 @@ void initState(State* state)
 
     state->renderer = SDL_CreateRenderer(state->window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    SDL_SetRenderDrawColor(state->renderer,255,255,255,255);
+    /*SDL_SetRenderDrawColor(state->renderer,255,255,255,255);
     SDL_RenderClear(state->renderer);
 
-    SDL_RenderPresent(state->renderer);
+    SDL_RenderPresent(state->renderer);*/
     
 }
 
@@ -45,6 +45,9 @@ void updateState(State* state)
     SDL_Event e;
     bool quit = false;
 
+    int mouseX,mouseY;
+
+
     while(!quit)
     {
         while(SDL_PollEvent(&e))
@@ -52,13 +55,20 @@ void updateState(State* state)
             switch(e.type)
             {
                 case SDL_QUIT: quit = true; break;
+                case SDL_MOUSEBUTTONDOWN:
+                    printf("Mouse Clicked!\n");
+                break;
             }
+
         }
 
         SDL_SetRenderDrawColor(state->renderer,255,255,255,255);
         SDL_RenderClear(state->renderer);
 
         drawGraph(state->renderer,&state->graph);
+
+        SDL_RenderPresent(state->renderer);
+        //SDL_Delay(20);
     }
 
 }

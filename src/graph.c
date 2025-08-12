@@ -27,7 +27,6 @@ void drawGrid(SDL_Renderer* renderer,Grid* grid)
 
 
 
-
 Graph createGraph(int scale)
 {
     return(Graph)
@@ -35,6 +34,7 @@ Graph createGraph(int scale)
         .scale = scale,
         .grid = createGrid(scale),
         .numbers = createText("res/dina.ttf",15,0,0,0),
+        .points = createList(),
     };
 }
 
@@ -98,6 +98,35 @@ void drawGraph(SDL_Renderer* renderer,Graph* graph)
 
     //draw_ruler on graph
     drawRuler(renderer,graph);
+    drawPoint(renderer,-1.7f,3.2f);
+    drawPoint(renderer,2.5f,1.5f);
 
-    SDL_RenderPresent(renderer);
 }
+
+void drawPoint(SDL_Renderer* renderer,float x,float y)
+{
+    Point point = {x,y,createText("res/dina.ttf",18,0,0,255)};
+    SDL_SetRenderDrawColor(renderer,0,0,255,255);
+
+    float px = (float)ORIGIN_X + (GRAPH_SCALE*point.x);
+    float py = (float)ORIGIN_Y - (GRAPH_SCALE*point.y);
+
+    SDL_Rect p = {px-2,py-1,4,4};
+
+    char* inf = NULL;
+
+    char q[5]; f_toa(point.x,q);
+    char b[5] = ",";
+    char c[5]; f_toa(point.y,c);
+
+    appendStr(&inf,q);appendStr(&inf,b);appendStr(&inf,c);
+
+    SDL_RenderFillRect(renderer,&p);
+    drawText(renderer,&point.info,inf,px-7,py-20);
+
+    TTF_CloseFont(point.info.font);
+
+    free(inf);
+}
+
+
