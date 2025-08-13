@@ -11,7 +11,9 @@
 typedef struct 
 {
     float x,y;
-    Text info;
+    char info[20];
+
+    //Text info;
 
 }Point;
 
@@ -37,6 +39,7 @@ Graph createGraph(int scale);
 void drawRuler(SDL_Renderer* renderer,Graph* graph);
 void drawGraph(SDL_Renderer* renderer,Graph* graph);
 
-void drawPoint(SDL_Renderer* renderer,float x,float y);
+void setPoint(Graph* graph,int x,int y);
+void drawPoints(SDL_Renderer* renderer,Graph* graph);
 
 #endif 

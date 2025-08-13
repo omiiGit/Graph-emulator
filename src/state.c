@@ -56,7 +56,16 @@ void updateState(State* state)
             {
                 case SDL_QUIT: quit = true; break;
                 case SDL_MOUSEBUTTONDOWN:
-                    printf("Mouse Clicked!\n");
+                    SDL_GetMouseState(&mouseX,&mouseY);
+
+                    float x = (float)(mouseX - ORIGIN_X) / GRAPH_SCALE;
+
+                    float y = (float)(mouseY - ORIGIN_Y) / -GRAPH_SCALE; 
+
+
+                    setPoint(&state->graph,x,y);
+                    printf("%d - %d    %.1f - %.1f\n\n",mouseX,mouseY,x,y);
+
                 break;
             }
 
@@ -68,7 +77,7 @@ void updateState(State* state)
         drawGraph(state->renderer,&state->graph);
 
         SDL_RenderPresent(state->renderer);
-        //SDL_Delay(20);
+        SDL_Delay(200);
     }
 
 }

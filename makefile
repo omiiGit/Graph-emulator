@@ -20,7 +20,7 @@ clean:
 	rm -fr build/*.o
 
 run:
-	i3-msg workspace 5
+	#i3-msg workspace 5
 	./$(TARGET)
 
 debug:

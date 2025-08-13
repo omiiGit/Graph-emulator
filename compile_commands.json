@@ -10,11 +10,11 @@
       "-D_REENTRANT",
       "-c",
       "-o",
-      "build/main.o",
-      "src/main.c"
+      "build/graph.o",
+      "src/graph.c"
     ],
     "directory": "/home/om/programs/c/graph",
-    "file": "/home/om/programs/c/graph/src/main.c",
-    "output": "/home/om/programs/c/graph/build/main.o"
+    "file": "/home/om/programs/c/graph/src/graph.c",
+    "output": "/home/om/programs/c/graph/build/graph.o"
   }
 ]

@@ -98,35 +98,47 @@ void drawGraph(SDL_Renderer* renderer,Graph* graph)
 
     //draw_ruler on graph
     drawRuler(renderer,graph);
-    drawPoint(renderer,-1.7f,3.2f);
-    drawPoint(renderer,2.5f,1.5f);
+    drawPoints(renderer,graph);
 
 }
 
-void drawPoint(SDL_Renderer* renderer,float x,float y)
+void setPoint(Graph* graph,int x,int y)
 {
-    Point point = {x,y,createText("res/dina.ttf",18,0,0,255)};
-    SDL_SetRenderDrawColor(renderer,0,0,255,255);
-
-    float px = (float)ORIGIN_X + (GRAPH_SCALE*point.x);
-    float py = (float)ORIGIN_Y - (GRAPH_SCALE*point.y);
-
-    SDL_Rect p = {px-2,py-1,4,4};
+    Point point;
+    point.x = x;
+    point.y = y;
 
     char* inf = NULL;
 
-    char q[5]; f_toa(point.x,q);
-    char b[5] = ",";
-    char c[5]; f_toa(point.y,c);
+    char q[20]; f_toa(x,q);
+    char b[] = ",";
+    char c[20]; f_toa(y,c);
 
     appendStr(&inf,q);appendStr(&inf,b);appendStr(&inf,c);
-
-    SDL_RenderFillRect(renderer,&p);
-    drawText(renderer,&point.info,inf,px-7,py-20);
-
-    TTF_CloseFont(point.info.font);
-
+    strcpy(point.info,inf);
+    //printf("%s\n",point.info);
     free(inf);
+
+    LIST_ADD(Point,&graph->points,point);
+}
+
+void drawPoints(SDL_Renderer* renderer,Graph* graph)
+{
+    SDL_SetRenderDrawColor(renderer,0,0,255,255);
+
+    for(int i = 0;i < graph->points.count;i++)
+    {
+        Point point = LIST_GET(Point,&graph->points,i);
+
+        float sx = (float)ORIGIN_X + ((float)GRAPH_SCALE*point.x);
+        float sy = (float)ORIGIN_Y - ((float)GRAPH_SCALE*point.y);
+
+        SDL_Rect p = {sx,sy,4,4};
+
+        printf("\n\n%g-%g\n\n",sx,sy);
+        SDL_RenderFillRect(renderer,&p);
+
+    }
 }
 
 
